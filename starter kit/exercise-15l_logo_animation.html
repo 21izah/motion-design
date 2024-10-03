@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exercise #15 || Animated logo</title>
+
+    <!-- Reset -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/modern-normalize@2.0.0/modern-normalize.min.css"
+    />
+
+    <style>
+      .container {
+        display: grid;
+        width: 100%;
+        height: 100vh;
+        place-content: center;
+        background-color: #f6e9fe;
+      }
+
+      /* Air */
+      svg path {
+        stroke: #080708;
+        stroke-width: 15;
+        stroke-linecap: round;
+      }
+      svg {
+        overflow: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Air -->
+      <svg width="93" height="86" viewBox="0 0 93 86" fill="none">
+        <path id="left" d="M2 36V67L16 72L30 67V51.5V36" stroke="black" />
+        <path
+          id="right"
+          d="M90.999 50.2207L91.2445 19.2217L77.2845 14.111L63.2454 19L63.1226 34.4995L62.9999 49.999"
+          stroke="black"
+        />
+        <path
+          id="middle"
+          d="M30 19V66.5L46.5 83L63 66.5V19L46.5 2.5L30 19Z"
+          stroke="black"
+        />
+      </svg>
+    </div>
+
+    <!-- Air -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/DrawSVGPlugin3.min.js"></script>
+    <script>
+      //
+      gsap.set("#middle", {
+        scale: 0,
+        transformOrigin: "50% 50%",
+      });
+
+      // Timeline
+      let tl = gsap.timeline({
+        repeat: -1,
+        yoyo: true,
+        ease: "power2.inOut",
+        defaults: {
+          duration: 2,
+          scale: 1,
+        },
+      });
+
+      // scale up the middle and rotate it
+      tl.to("#middle", {
+        scale: 1,
+        rotation: 360,
+        duration: 1.2,
+        ease: "elastic.out",
+      });
+
+      // animate the left handle drawing
+      tl.fromTo(
+        "#left",
+        {
+          drawSVG: "100% 100%",
+        },
+        {
+          drawSVG: "10% 100%",
+          duration: 1.2,
+          ease: "power4.inOut",
+        }
+      );
+      // animate the right handle drawing
+      tl.fromTo(
+        "#right",
+        {
+          drawSVG: "100% 100%",
+        },
+        {
+          drawSVG: "10% 100%",
+          duration: 1.2,
+          ease: "power4.inOut",
+        }
+      );
+
+      // change color
+      tl.to("#middle", "#left", "#right", {
+        stroke: "#8f178f",
+        duration: 0.4,
+      });
+    </script>
+  </body>
+</html>
